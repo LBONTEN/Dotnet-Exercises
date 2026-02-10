@@ -4,17 +4,15 @@
 
 class IDValidator()
 {
-    public static List<(long start, long end)> ParseInput(string fileName)
+    public static IEnumerable<(long start, long end)> ParseInput(string fileName)
     {
-        List<(long start, long end)> idRanges = new List<(long start, long end)>();
         string text = File.ReadAllText(fileName);
         string[] idRangeInputs = text.Split(',');
         foreach (string input in idRangeInputs)
         {
             string[] splitInput = input.Split('-');
-            idRanges.Add((Convert.ToInt64(splitInput[0]), Convert.ToInt64(splitInput[1])));
+            yield return (Convert.ToInt64(splitInput[0]), Convert.ToInt64(splitInput[1]));
         }
-        return idRanges;
     }
 
     public static long ValidateIds(List<(long start, long end)> idRanges)
